@@ -1,0 +1,27 @@
+;(set-face-font 'default "7x13")
+(setq default-major-mode 'text-mode)
+; No startup screen in the second half of the window
+(setq inhibit-startup-screen t)
+; No toolbar
+(tool-bar-mode -1)
+; Always font-lock mode
+(global-font-lock-mode t)
+; Sigh
+(setq python-indent 4
+      python-guess-indent nil
+      python-indent-guess-indent-offset nil)
+; Wrap at 72 in text mode
+(setq text-mode-hook
+      '(lambda nil
+         (setq fill-column 72)
+         (auto-fill-mode 1)))
+
+(add-to-list 'load-path "~/elisp/")
+(add-to-list 'load-path (concat user-emacs-directory
+        (convert-standard-filename "el-get/git-commit-mode/")))
+(require 'cython-mode)
+(require 'fill-column-indicator)
+(require 'git-commit)
+(setq fci-rule-column 80)
+(add-hook 'python-mode-hook 'fci-mode)
+(add-hook 'sh-mode-hook (lambda () (setq sh-basic-offset 2 indent-tabs-mode nil)))
